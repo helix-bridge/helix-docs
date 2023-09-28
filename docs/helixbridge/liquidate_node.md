@@ -93,16 +93,17 @@ Through the steps mentioned above, the LnProvider completes the registration pro
 
 5. The LnProvider monitors the event, and on the target chain, transfers the tokens to the user's account, generates a transfer proof, and completes the transaction.
 
-- **Exception Monitoring**
-  <br>In step 5 of the cross-chain asset transfer process, a timeout period is set, and the LnProvider is required to complete the transfer within this time limit. If the LnProvider fails to do so, the slasher can take the following actions:
+:::warning{title="Exception Monitoring"}
+In step 5 of the cross-chain asset transfer process, a timeout period is set, and the LnProvider is required to complete the transfer within this time limit. If the LnProvider fails to do so, the slasher can take the following actions:
 
-1. On the target chain, the slasher will transfer tokens from its own account to the user's account to cover the transaction (this is known as "slash and cover"), and generate a transfer proof.
+1. On the target chain, the `Slasher` will transfer tokens from its own account to the user's account to cover the transaction (this is known as "slash and cover"), and generate a transfer proof.
 
-2. The slasher will then send this transfer proof to the source chain through the underlying bridge messaging system. Upon receiving the message, the source chain will verify the transaction. If the verification is successful, the source chain will extract the LnProvider's collateral to compensate the slasher for covering the assets and to impose a penalty on the LnProvider.
+2. The `Slasher` will then send this transfer proof to the source chain through the underlying bridge messaging system. Upon receiving the message, the source chain will verify the transaction. If the verification is successful, the source chain will extract the `LnProvider's` collateral to compensate the slasher for covering the assets and to impose a penalty on the `LnProvider`.
 
 3. The determination of whether the transfer is within the timeout period is based on comparing the time when the user sends the transaction (the timestamp of the block on the source chain where the transaction is included) with the current time on the target chain. The synchronization of clocks between the two chains is ensured by the safety assumptions, allowing the timeout time to be effective within a certain error range.
 
-4. This mechanism ensures that the LnProvider fulfills its responsibility to complete the transfer within the specified time, and in the event of a failure, the slasher steps in to cover the assets and initiate penalties, thus maintaining the security and reliability of the cross-chain asset transfer protocol.
+4. This mechanism ensures that the `LnProvider` fulfills its responsibility to complete the transfer within the specified time, and in the event of a failure, the slasher steps in to cover the assets and initiate penalties, thus maintaining the security and reliability of the cross-chain asset transfer protocol.
+   :::
 
 ### Ordering
 
@@ -147,11 +148,14 @@ The basic interaction process is similar to the message channel from the target 
 - If the provider delivers after the timeout, a portion of its collateral will be deducted as a penalty, which will be used to compensate the slasher for the cross-chain fees incurred during the slash operation.
 - When the slash message arrives at the target chain, it checks whether the transaction needs to be slashed in the following scenarios:
 
+:::info{title="Slash Scenarios"}
+
 1. If the cross-chain transaction is not timed out, the slash operation is invalid and not executed.
 2. If the cross-chain transaction is timed out and has already been slashed, the slash operation is invalid and not executed.
 3. If the cross-chain transaction is timed out and has not been delivered, the slash operation is valid. The slasher receives fees and penalty assets, while the user receives transferred assets.
 4. If the cross-chain transaction is timed out and LnProvider delivered before the timeout, the slash operation is invalid and not executed.
 5. If the cross-chain transaction is timed out and LnProvider delivered after the timeout, the slash operation is partially valid. The slasher can receive a portion of the penalty assets to compensate for gas and bridge fees incurred by the user.
+   :::
 
 ### Ordering
 
