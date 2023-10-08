@@ -22,6 +22,7 @@ jobs:
         id: smart-vercel
         with:
           vercel_token: ${{ secrets.VERCEL_TOKEN }}
+          node_version: 18
           vercel_group: itering
           preview_output: true
           project_name: helix-docs
