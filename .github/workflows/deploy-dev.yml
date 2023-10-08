@@ -23,6 +23,7 @@ jobs:
         with:
           vercel_token: ${{ secrets.VERCEL_TOKEN }}
           node_version: 18
+          dist_path: dist
           vercel_group: itering
           preview_output: true
           project_name: helix-docs
