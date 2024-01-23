@@ -3,6 +3,7 @@ group:
   title: 🔹 Protocol
   order: 2
 order: 2
+title: Liquidity Node(V2)
 ---
 
 ## Overview
