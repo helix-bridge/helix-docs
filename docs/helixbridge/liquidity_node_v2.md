@@ -101,9 +101,7 @@ Slasher is responsible for monitoring the behavior of LnProviders and, in the ev
 ## TransferId
 
 
-$$
-TransferId = Hash(params，lastTransferId)
-$$
+$TransferId = Hash(params，lastTransferId)$
 Where:
 
 * **params**: 
