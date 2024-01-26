@@ -8,39 +8,47 @@ title: Liquidity Node(V3)
 
 ## Overview
 
-In the v2 version of the Liquidity Node protocol, we introduced a collateral mechanism to safeguard user assets and effectively reduce the number of cross-chain message invocations, thereby lowering cross-chain fees. In this protocol, the collateral staked by the LnProvider determines the transfer limit for a single transaction in that direction. Therefore, to achieve better trading depth, LnProviders need to stake more collateral. However, as collateral cannot be shared across different directions, this results in increased collateral costs. Hence, the v2 protocol version is suitable for frequent small-value transactions.
+In the v2 version of the Liquidity Node Protocol, we have implemented a collateral mechanism to protect user assets. In this v2 protocol, the amount of collateral staked by the LnProvider determines the transfer limit for a single transaction in that direction. To enhance trading depth, LnProviders must stake more collateral. However, since collateral cannot be shared across different directions, this leads to increased collateral costs. Consequently, the v2 protocol is more suitable for frequent, small-value transactions.
 
-To address this, we introduce a new protocol version, v3, which eliminates the need for collateral staking. When registering, LnProviders only need to stake a small amount of penalty reserve, ensuring the completion of message delivery by the LnProvider and imposing penalties when expectations are not met.
+To address this issue, we are introducing a new protocol version, v3, which eliminates the requirement for collateral staking. When registering, LnProviders will only need to stake a modest penalty reserve amount. This reserve ensures the timely completion of message delivery by the LnProvider and imposes penalties if expectations are not met.
 
 ## Security Assumptions
 
-1. We assume the existence of a secure and reliable general-purpose message channel for communication from the target chain to the source chain. This assumption guarantees the reliable transmission of messages from the target chain to the source chain, maintaining the integrity and confidentiality of the messages.
-2. The source chain and the target chain's blocks utilize the same world clock or time synchronization mechanism. This assumption enables consistent timestamping and handling of time-sensitive events across both chains.
+1. We make the assumption that there exists a secure and reliable general-purpose messaging channel for communication from the target chain to the source chain. This assumption ensures the reliable transmission of messages from the target chain to the source chain.
+2. We assume that both the source chain and the target chain's blocks are synchronized with the same world clock. This assumption allows for consistent timestamping and the handling of time-sensitive events across both chains.
 
-## Interaction
+## Interactions
 
 ### LnProvider Registration
 
-LnProvider stores its configuration information in the source chain and stakes a certain amount of penalty collateral, which can be shared in different path.
+The LnProvider stores its configuration information on the source chain and stakes a specific amount of penalty reserve, which can be shared across different paths.
 
-- Choose the supported source chain, target chain, and transfer token; register LnProvider; set transaction fees and transfer limits.
-- Deposit penalty collateral on source chain.
-- Run the relayer client.
+1. Select the supported source chain, target chain, and token. Register the LnProvider and configure transaction fees and transfer limits accordingly.
 
-### Cross-Chain Tranfer
+2. Deposit the penalty reserve on the source chain.
 
-- Users select the direction for token cross-chain and specify LnProvider to initiate cross-chain transactions in the source chain.
-- Users lock tokens, fees, and a single LnProvider penalty collateral in the source chain.
-- LnProvider monitors the transfer event, completes the transaction on the target chain, transfers tokens to the user's specified account, and generates a transfer proof.
-- If the third step is not completed, until a timeout, the Slasher on the target chain transfers tokens to the user and sends a reverse message to the source chain, extracting the locked assets from the second step.
+3. Run the relayer client.
 
-:::info{title=Slasher}
-Slasher does not need to register; any account, including the user themselves, is considered a Slasher as long as it completes the fourth step.
-Slasher plays a crucial role throughout the entire cross-chain transaction cycle and assists in concluding transactions when LnProvider is not functioning.
-:::
+### Cross-Chain Tranfer by Users
 
-### Liquidity Withdraw
+1. A user choose the direction for cross-chain token transfer and specify the LnProvider to initiate the transaction on the source chain.
 
-Upon normal transaction completion, liquidity for each transaction is locked in the source chain.
-LnProvider needs to send a generic message from the target chain to the source chain to extract liquidity.
-LnProvider can choose to extract liquidity from multiple transactions simultaneously to significantly reduce cross-chain message costs. However, accumulating too many transactions may result in high gas fees upon execution and excessive message accumulation, occupying liquidity costs. Therefore, LnProvider needs to appropriately choose the number of transactions to batch extract liquidity.
+2. The user lock tokens, fees, and a single LnProvider penalty collateral on the source chain.
+
+3. The user waits to see the tokens arrive in his/her account on the target chain.
+
+   Once the LnProvider sees the transfer event, it transfers the tokens to the user-specified account on the target chain and generates a transfer proof at the same time.
+
+   If the LnProvider did not complete the transfer within a specified timeout, the Slasher on the target chain transfers tokens to the user and sends a reverse message to the source chain, extracting the locked assets as per the second step.
+
+> A Slasher does not need to register. Any account including the user themselves is considered a Slasher as long as it completes the this.
+>
+> Slashers play a crucial role throughout the entire cross-chain transaction cycle and assists in finalizing transactions when LnProvider is not functioning.
+
+### Liquidity Withdrawal by LnProvider
+
+After a regular transaction is successfully completed, the liquidity for each transaction remains locked within the source chain.
+
+To withdraw this liquidity, LnProvider must send a cross-chain message from the target chain to the source chain. LnProvider has the option to withdraw liquidity from multiple transactions simultaneously, which can notably reduce cross-chain messaging gas fees.
+
+> However, accumulating too many transactions may lead to the liquidity over-occupation, thereby weakening the LnProvider's liquidity capabilities. Therefore, LnProvider must carefully determine the number of transactions to batch withdraw liquidity from.
