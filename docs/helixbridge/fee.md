@@ -5,23 +5,28 @@ group:
 order: 2
 ---
 
-## Fee for CBA model
+# Fee
 
-Under this model, Helix relies on generic messaging to deliver cross-chain information, with the cost of the underlying messaging accounting for most of the transfer costs. Currently, Helix does not charge protocol fees, so for this type of token bridge, the fees that the user needs to pay are limited to the cost of executing the message channel, which is usually paid by native tokens.
+## Fee for CBA Model
+
+Under the CBA model, Helix relies on generic cross-chain messaging channel to transmit cross-chain information, with the cost of the underlying messaging being the primary factor contributing to the transfer expenses. Currently, Helix Bridge does not charge protocol fees. Therefore, in this type of token bridge, the fees incurred by users are limited to the cost associated with executing the messaging channel, typically paid using native tokens.
 
 ## Fee for LnBridge
 
-The fee consists of two parts, a base fee to cover the LnProvider's gas fee for executing transactions on the target chain and a liquidity fee to compensate the LnProvider for the loss of liquidity.
+For LnBridge, the fee structure consists of two components: a base fee to cover the gas fees incurred by the LnProvider when executing transactions on the target chain and a liquidity fee designed to compensate the LnProvider for the loss of liquidity.
 
-- Base Fee
-  <br>It is configured by LnProvider, and the fee is a fixed value until the LnPriver is updated. This fee needs to be paid to the LnProvider at the moment the user initiates the transfer.
-- Liquidity Fee
-  <br>Also configured by LnProvider, and this fee is related to the amount of transfer made by the user, and the higher the amount of transfer, the higher the fee charged.
+1. Base Fee
 
-Assuming the user's transfer quantity is `Amount`, the base fee is `BaseFee`, and the liquidity rate is `LiquidityRate` then
+   The base fee is determined and set by the LnProvider, remaining a fixed value until the LnProvider updates it. Users are required to pay this fee to the LnProvider at the time they initiate the transfer.
+
+2. Liquidity Fee
+
+   Similar to the base fee, the liquidity fee is also determined by the LnProvider. However, this fee is directly related to the amount of the transfer initiated by the user. As the transfer amount increases, the corresponding fee also increases.
+
+Assuming the user's transfer quantity is denoted as "Amount," the base fee as "BaseFee," and the liquidity rate as "LiquidityRate," then the total fee for the transfer can be calculated as follows:
 
 ```
 TotalFee = BaseFee + Amount * LiquidityRate
 ```
 
-Fees are captured outside of the transfer, so users should set aside a portion of the Token to pay for cross-chain fees when transferring across the chain. LnProvider is open for registration and its fee is freely configurable, Helix backend will grab all the LnProvider information and will choose the one that makes sense for the user based on the configuration parameters. For example, an LnProvider with a lower execution fee will have a higher probability of being selected.
+It's important to note that these fees are separate from the actual transfer and need to be accounted for by users. Users should set aside a portion of the token to cover the cross-chain fees. LnProvider registration is permission-less, and their fee is freely configurable. Helix's backend system will gather information from various LnProviders and choose the most suitable one for users based on their preferences. For instance, an LnProvider with a lower fee will have a higher chance of being recommended by the system.

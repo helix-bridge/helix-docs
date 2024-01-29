@@ -5,49 +5,64 @@ group:
 order: 1
 ---
 
-## Overview
+# xToken
 
-Although the protocol is currently little used, it's an important part of Helix's business is hosting user assets and completing cross-chain asset transfers. It uses an asset registration and cross-chain protocol based on the CBA (Cryptocurrency Backed Asset) model.
+xToken plays an essential role in Helix's business by hosting user assets and facilitating cross-chain asset transfers. It operates based on an asset registration and cross-chain protocol rooted from the CBA (Cryptocurrency Backed Asset) model.
 
-## Terminology
+## Terms
 
 - **Source Chain And Target Chain**
-  <br>Rrefer to the source blockchain network and the target blockchain network for cross-chain asset transfer via a bridge, respectively, or the caller and the callee of a remote chain call. Generally, a light client of the source chain needs to be built on the target chain to perform cross-chain verification of messages or events from the source chain.
-- **Origin Token And Mapping Token**
-  <br>This is a relative term. Original token usually refer to assets that have not been bridged to the target chain., such as BTC on the Bitcoin network, ETH or USDT on the Ethernet network. As opposed to a orgin token, which is located on the source chain end of the bridge, and a mapping token, which is located on the target chain end of the bridge, and is a type of asset created with the backing of the original token.
+
+  Refers to the source blockchain network and the target blockchain network for cross-chain asset transfers via a bridge, respectively. Alternatively, it can denote the caller and the callee of a remote chain call. Generally, a light client of the source chain needs to be established on the target chain to perform cross-chain verification of messages or events from the source chain.
+
+- **Original Token and Mapping Token**
+
+  This is a pair of relative terms. The original token typically refers to assets that have not been bridged to the target chain, such as BTC on the Bitcoin network, ETH, or USDT on the Ethereum network. On the other hand, the original token is located on the source chain of the bridge, while the mapping token is situated on the target chain of the bridge. The mapping token is a type of asset created with the backing of the original token.
+
 - **Relayer**
-  <br>Relayers are a group of competing and supervising entities to maintain and accomplish the bridge's information transfer tasks. Relayers cannot have a substantial impact on the safety of a bridge, but have a direct role in the stability and effectiveness of the bridge.
+
+  Relayers are a group of competing and supervising entities responsible for maintaining and executing the bridge's information relaying tasks. While relayers may not significantly impact the safety of a bridge, they play a direct role in ensuring the liveness and effectiveness of the bridge.
 
 ## CBA Model
 
-Build the Backing module on the source chain and the Issuing module on the target chain, and the underlying call to the generic bridge message channel interface to complete the asset registration and issuance process.
+The CBA Model involves deploying the Backing module on the source chain and the Issuing module on the target chain. The asset registration and issuance process is completed through underlying calls to the generic cross-chain messaging channel.
 
 <img src="/cba01.png" style="width:70%; height:70%; text-align:middle; margin-left:15%; margin-right:15%">
 
 - **Backing**
-  <br>Deployed on source chain. User tokens are locked to the Backing module, Backing generates locking proofs, and the tokens are hosted in Backing as an endorsement for asset issuance mapping on the target chain. Until the user initiates a reverse redemption operation, the tokens are unlocked again to the user's account.
+
+  Deployed on the source chain, the Backing module locks user tokens. Backing generates locking proofs, and the tokens are held in Backing as collateral for asset issuance mapping on the target chain. These tokens remain locked until a user initiates a reverse redemption operation, at which point they are unlocked and returned to the user's account.
+
 - **Issuing**
-  <br>Deployed on target chain. Backed by the original token in the locking model, Issuing issues mapping token to the user's account. When a user initiates a redemption operation, Issuing burns the mapping token and generates a proof of destruction for the original token redemption.
+
+  Deployed on the target chain, the Issuing module is backed by the original token in the locking model. Issuing issues mapping tokens to the user's account. When a user initiates a redemption operation, Issuing burns the mapping token and generates a proof of destruction for the original token redemption.
 
 ## Protocol
 
 <img src="/mapping_token.svg" style="width:70%; height:70%; text-align:middle; margin-left:15%; margin-right:15%">
 
-- **Register**
-  <br>Token registration is the process of registering the original token to the Backing module on the source chain and mapping it to the mapping token on the target chain. It calls Backing module interface to pass in meta information of the original token, and the message relayer transfers the information to the Issuing module on the target chain to create the corresponding mapping token.
-- **Lock And Issue**
-  <br>After the asset registration is completed, the user can lock the original token through Backing module, and after Message Relayer synchronizes the locking message to the target chain, Issuing module mint out the same amount of mapping token to the account specified by the user.
-- **Swap And Other Applications**
-  <br>On the target chain, mapping token have the same token standard as original token, allowing users to execute various types of applications such as swap and transfer.
-- **Burn And Redeem**
-  <br>Users holding mapping token on the target chain can burn the mapping token by calling the Issuing module interface. Message Relayer will deliver the burning message to the source chain and then the Backing module unlock the original token to the account specified by the user.
+- **Asset registration**
+
+  Asset registration is the process of registering the original token with the Backing module on the source chain and mapping it to the corresponding mapping token on the target chain. This involves calling the Backing module to provide meta information about the original token, and the message relayer relays this information to the Issuing module on the target chain to create the corresponding mapping token.
+
+- **Tokens Locking and Issuance**
+
+  After completing asset registration, users can lock the original tokens through the Backing module. Once the Message Relayer synchronizes the locking message to the target chain, the Issuing module mints the same amount of mapping tokens to the user's specified account.
+
+- **Operations After Issuance**
+
+  On the target chain, mapping tokens adhere to the same token standard as original tokens, allowing users to execute various types of operations such as swapping and transferring.
+
+- **Tokens Burning and Redemption**
+
+  Users holding mapping tokens on the target chain can burn them by calling the Issuing module. The Message Relayer delivers the burning message to the source chain, and then the Backing module unlocks the original token, transferring it to the user's specified account.
 
 ## Transaction Atomicity
 
-- Token Protocol V1
-  <br>In this version, any cross-chain transfer message will receive a reply from target chain. If the mapping Token is issued successfully at the target chain, the original token will be locked on the source chain, otherwise the source chain will return the original token to users.
-  <br>So the transaction integrity of this version is strictly dependent on the transactions of the message bridge, and if the message bridge does not have a response process, the transaction atomicity of the asset bridge cannot be accomplished.
-- Token Protocol V2
-  <br>In this version, we have updated the transaction processing flow, if the issue of mapped assets on the target chain is successful, the transaction will end, if the issue fails, the user can get the issue failure proof to redeem the original token and complete the transaction.
-  <br>So we no longer rely on the response result from the bridge messaging service and only need to get the message delivery failure proof in case of message delivery failure. This proof usually consists of two parts, a proof of message delivery and a proof of non-existence of message success.
-  <br>Compared with V1 version, this version can adapt more bridge messaging services and save more cost on messaging services. However, an additional refund operation is required in the case of failure.
+- Protocol V1
+
+  In this version, any cross-chain transfer message will receive a reply from the target chain. If the mapping token is successfully issued on the target chain, the original token will be locked on the source chain. If the issue fails, the source chain will return the original token to the users. Therefore, the transaction integrity in this version relies heavily on the transactions of the cross-chain messaging service. If the cross-chain messaging service lacks a response process, the transaction atomicity of the asset bridge cannot be ensured.
+
+- Protocol V2
+
+  In this version, we have updated the transaction processing flow. If the issuance of mapped tokens on the target chain succeeds, the transaction concludes. However, if the issuance fails, the user can obtain a proof of the failure to redeem the original token and complete the transaction. Consequently, we no longer depend on the response result from the cross-chain messaging service and only require the failure proof in case of message delivery failure. This proof typically comprises two parts: a proof of message delivery and a proof of the absence of message success. Compared to the V1, this version can adapt to more cross-chain messaging services and reduce costs. However, it requires an additional refund operation in case of failure.
