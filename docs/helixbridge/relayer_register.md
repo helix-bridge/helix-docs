@@ -63,34 +63,26 @@ The configuration information for the Relayer is stored in the file `.maintain/c
 {
   "indexer": "https://apollo-test.helixbridge.app/graphql",
   "relayGasLimit": 600000,
-  "chains": [
+  "rpcnodes": [
       {
           "name": "sepolia",
-          "rpc": "https://rpc2.sepolia.org",
-          "native": "ETH",
-          "chainId": 11155111
+          "rpc": "https://rpc2.sepolia.org"
       },
       {
           "name": "arbitrum-sepolia",
-          "rpc": "https://sepolia-rollup.arbitrum.io/rpc",
-          "native": "ETH",
-          "chainId": 300
+          "rpc": "https://sepolia-rollup.arbitrum.io/rpc"
       }
   ],
   "bridges": [
       {
-          "fromChain": "arbitrum-sepolia",
-          "toChain": "sepolia",
-          "sourceBridgeAddress": "0xbA96d83E2A04c4E50F2D6D7eCA03D70bA2426e5f",
-          "targetBridgeAddress": "0xbA96d83E2A04c4E50F2D6D7eCA03D70bA2426e5f",
+          "direction": "arbitrum-sepolia->sepolia",
           "encryptedPrivateKey": "<ENCRYPTED_PRIVATEKEY>",
           "feeLimit": 0.01,
           "reorgThreshold": 20,
           "bridgeType": "lnv2-opposite",
-          "providers": [
+          "tokens": [
               {
-                  "fromAddress": "0x8A87497488073307E1a17e8A12475a94Afcb413f",
-                  "toAddress": "0x0ac58Df0cc3542beC4cDa71B16D06C3cCc39f405",
+                  "symbol": "usdc->usdc",
                   "swapRate": 2000
               }
           ]
@@ -99,7 +91,7 @@ The configuration information for the Relayer is stored in the file `.maintain/c
 }
 ```
 
-- **indexer**: It's the second-layer index service introduced in this [section](https://docs.helixbridge.app/helixbridge/relayer_indexer) can be accessed through the following link.
+- **indexer**[option]: It's the second-layer index service introduced in this [section](https://docs.helixbridge.app/helixbridge/relayer_indexer) can be accessed through the following link.
   <table style="width:80%">
   <tr>
   <th style="width:20%">Network</th><th>URL</th>
@@ -112,11 +104,10 @@ The configuration information for the Relayer is stored in the file `.maintain/c
   </tr>
   </table>
 
-- **relayGasLimit**: The gas limit for the client to send the relay transaction. If not set, it will automatically estimate a reasonable value.
-- **chains**: The list of information about the chains that the relayer needs, including name, chainId, and the URL for accessing the RPC node.
+- **relayGasLimit**[option]: The gas limit for the client to send the relay transaction. If not set, it will automatically estimate a reasonable value.
+- **chains**: The list of information about the chains that the relayer needs, including name(must match the names defined in [section](http://localhost:8000/helixbridge/supported_chains)), chainId, and the URL for accessing the RPC node.
 - **bridges**: The list of token bridge paths that can support multiple directions simultaneously. The fields include:
-  - **fromChain** and **toChain**: Must match the names defined in fileld **chains**
-  - **sourceBridge** and **targetBridge**: Representing the addresses of the Helix LnBridgeV2 contract (can be queried in section [Contract Address](https://docs.helixbridge.app/helixbridge/testnet))
+  - **direction**: Must match the names defined in fileld **chains**
   - **encryptedPrivateKey**: It's the relayer's encrypted private key, corresponding to the account registered during registration
     :::info{title=EncryptPrivateKey}
     Execute the command `yarn crypto`. Follow the prompts to input your password and private key. After pressing Enter, it will print the private key encrypted with the provided password. Then replace the `<ENCRYPTED_PRIVATEKEY>` in the configuration file with the encrypted private key obtained.
@@ -124,10 +115,21 @@ The configuration information for the Relayer is stored in the file `.maintain/c
   - **feeLimit**: Controls the maximum cost of a relay operation, protecting the relayer from excessive gas fees
   - **reorgThreshold**: It's an assumption about the block confirmation of transactions initiated by users on the source chain – the larger, the safer
   - **bridgeType**: Indicates the type of bridge, currently taking values of `lnv2-default`, `lnv2-opposite`, and `lnv3`, consistent with the type displayed during relayer registration
-  - **providers**: List the addresses of token pairs on the source and target chains, as well as the exchange rate for the native token on the target chain.
+  - **tokens**: List the addresses of token pairs on the source and target chains, as well as the exchange rate for the native token on the target chain.
     :::info{title=swapRate}
     The swapRate is the conversion rate from the native token on the target chain to the transfer token. For example, the native token on Ethereum is ETH, and the token to be transferred is USDC, the conversion rate might be approximately 2500 at 16/01/2024. As prices fluctuate, the Relayer needs to periodically adjust this ratio.
     :::
+
+### SafeWallet
+
+You can also use safewallet to run relayer, just configure the following 3 parameters in the bridges field of the configuration file.
+
+- **safeWalletAddress:**
+  the wallet address, must exist both on source chain and target chain.
+- **safeWalletUrl:**
+  the safe wallet service url. eg. https://safe-transaction-goerli.safe.global
+- **safeWalletRole:**
+  the Role of the account, can be `signer` or `executer`, the `executer` will send execution transaction when there are enough signatures.
 
 ### Install & Run
 
