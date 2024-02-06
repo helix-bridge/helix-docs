@@ -105,7 +105,7 @@ The configuration information for the Relayer is stored in the file `.maintain/c
   </table>
 
 - **relayGasLimit**[option]: The gas limit for the client to send the relay transaction. If not set, it will automatically estimate a reasonable value.
-- **chains**: The list of information about the chains that the relayer needs, including name(must match the names defined in [section](http://localhost:8000/helixbridge/supported_chains)), chainId, and the URL for accessing the RPC node.
+- **rpcnodes**: The list of information about the chains that the relayer needs, including name(must match the names defined in [section](http://localhost:8000/helixbridge/supported_chains)), chainId, and the URL for accessing the RPC node.
 - **bridges**: The list of token bridge paths that can support multiple directions simultaneously. The fields include:
   - **direction**: Must match the names defined in fileld **chains**
   - **encryptedPrivateKey**: It's the relayer's encrypted private key, corresponding to the account registered during registration
