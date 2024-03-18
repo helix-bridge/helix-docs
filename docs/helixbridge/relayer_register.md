@@ -119,6 +119,9 @@ The configuration information for the Relayer is stored in the file `.maintain/c
     :::info{title=swapRate}
     The swapRate is the conversion rate from the native token on the target chain to the transfer token. For example, the native token on Ethereum is ETH, and the token to be transferred is USDC, the conversion rate might be approximately 2500 at 16/01/2024. As prices fluctuate, the Relayer needs to periodically adjust this ratio.
     :::
+    :::info{title=withdrawLiquidity}
+    For the lnv3 bridge, the relayer can set two parameters in this section, including withdrawLiquidityAmountThreshold and withdrawLiquidityCountThreshold. The relayer client will check every 6 hours, and if either threshold is met, the relayer client will initiate the settlement process.
+    :::
 
 ### SafeWallet
 
