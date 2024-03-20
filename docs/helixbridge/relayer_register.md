@@ -132,7 +132,7 @@ You can also use safewallet to run relayer, just configure the following 3 param
 - **safeWalletUrl:**
   the safe wallet service url. eg. https://safe-transaction-goerli.safe.global
 - **safeWalletRole:**
-  the Role of the account, can be `signer` or `executer`, the `executer` will send execution transaction when there are enough signatures.
+  the Role of the account, can be `signer` or `executor`, the `executor` will send execution transaction when there are enough signatures.
 
 ### Install & Run
 
