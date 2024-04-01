@@ -1,14 +1,20 @@
 import { defineConfig } from 'dumi';
+import { defineThemeConfig } from 'dumi-theme-chakra';
 
 export default defineConfig({
   themeConfig: {
-    name: 'documents',
-    footer: `<br>Copyright © ${(/* @__PURE__ */ new Date()).getFullYear()} | Powered by <a href="https://helixbridge.app" target="_blank" rel="noreferrer">helix</a>`,
-    logo: "/logoLight.svg",
-    nav: [{ title: 'Helix Bridge', link: '/helixbridge/what_is_helix' }],
+    name: 'Helix Bridge',
+    footer: `<span style="padding-bottom: 10px;">Copyright © ${new Date().getFullYear()} | Helix Bridge</span>`,
+    logo: '/logoLight.svg',
+    nav: [],
     //hideHomeNav: true,
+    ...defineThemeConfig({
+      social: {
+        github: { name: 'Github', link: 'https://github.com/helix-bridge' },
+        discord: { name: 'Discord', link: 'https://discord.gg/6XyyNGugdE' },
+      },
+      helmetIcon: '-',
+    }),
   },
-  locales: [
-    { id: 'en-US', name: 'EN' },
-  ],
+  locales: [{ id: 'en-US', name: 'EN' }],
 });
