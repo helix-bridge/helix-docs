@@ -3,6 +3,7 @@ import { defineThemeConfig } from 'dumi-theme-chakra';
 
 export default defineConfig({
   themeConfig: {
+    name: 'Helix',
     footer: `<span style="padding-bottom: 10px;">Copyright © ${new Date().getFullYear()} | Helix Bridge</span>`,
     logo: '/logoLight.svg',
     nav: [],
