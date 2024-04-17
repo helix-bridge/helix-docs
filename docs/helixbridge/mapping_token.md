@@ -5,9 +5,9 @@ group:
 order: 1
 ---
 
-# xToken
+# XToken
 
-xToken plays an essential role in Helix's business by hosting user assets and facilitating cross-chain asset transfers. It operates based on an asset registration and cross-chain protocol rooted from the CBA (Cryptocurrency Backed Asset) model.
+XToken is crucial to Helix's Bridge as a Service (BaaS) by offering a framework and service for custodian dapps or token owners to create bridges across different chains. It utilizes the Cryptocurrency Backed Asset (CBA) model to map tokens, ensuring a reliable issuance and redemption process during bridging.
 
 ## Terms
 
