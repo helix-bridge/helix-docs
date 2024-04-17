@@ -5,9 +5,9 @@ group:
 order: 1
 ---
 
-# xToken
+# XToken
 
-xToken plays an essential role in Helix's business by hosting user assets and facilitating cross-chain asset transfers. It operates based on an asset registration and cross-chain protocol rooted from the CBA (Cryptocurrency Backed Asset) model.
+XToken is crucial to Helix's Bridge as a Service (BaaS) by offering a framework and service for custodian dapps or token owners to create bridges across different chains. It utilizes the Cryptocurrency Backed Asset (CBA) model to map tokens, ensuring a reliable issuance and redemption process during bridging.
 
 ## Terms
 
@@ -59,10 +59,10 @@ The CBA Model involves deploying the Backing module on the source chain and the 
 
 ## Transaction Atomicity
 
-- Protocol V1
-
-  In this version, any cross-chain transfer message will receive a reply from the target chain. If the mapping token is successfully issued on the target chain, the original token will be locked on the source chain. If the issue fails, the source chain will return the original token to the users. Therefore, the transaction integrity in this version relies heavily on the transactions of the cross-chain messaging service. If the cross-chain messaging service lacks a response process, the transaction atomicity of the asset bridge cannot be ensured.
-
-- Protocol V2
-
-  In this version, we have updated the transaction processing flow. If the issuance of mapped tokens on the target chain succeeds, the transaction concludes. However, if the issuance fails, the user can obtain a proof of the failure to redeem the original token and complete the transaction. Consequently, we no longer depend on the response result from the cross-chain messaging service and only require the failure proof in case of message delivery failure. This proof typically comprises two parts: a proof of message delivery and a proof of the absence of message success. Compared to the V1, this version can adapt to more cross-chain messaging services and reduce costs. However, it requires an additional refund operation in case of failure.
+  The issuance or redemption process can be treated as a transaction. For example, when a user initiates a `lockAndXIssue` operation on the source chain, the protocol generates an global unique ID to track this transaction. Similarly, on the target chain, a status tracks the transaction's state, including `TRANSFER_UNFILLED`, `TRANSFER_DELIVERED`, or `TRANSFER_REFUNDED`. This procedure is analogous for the `burnAndXUnlock` operation, but we will focus on `lockAndXIssue` to illustrate how transactions are resolved under various circumstances.
+  
+  If the issuance of mapped tokens on the target chain is successful, the transaction status updates to `TRANSFER_DELIVERED` and the process concludes.
+  
+  However, if there are issues in the messaging layer such as undelivered messages, delivery failures, or significant delays, leaving the status at `TRANSFER_UNFILLED`, the user can initiate a rollback through the xRollbackLockAndXIssue operation on the target chain. This marks the status as `TRANSFER_REFUNDED` and triggers a message to the source chain to process an asset rollback and finalize the transaction.
+  
+  This streamlined approach reduces our dependency on the responsiveness of the cross-chain messaging service, enables compatibility with more messaging services, and lowers operational costs. It does, however, require an additional refund operation in cases of failure, ensuring transaction integrity and user confidence.
