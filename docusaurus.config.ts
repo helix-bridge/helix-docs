@@ -56,14 +56,7 @@ const config: Config = {
         alt: "Helix Bridge Logo",
         src: "img/logo.svg",
       },
-      items: [
-        {
-          href: "https://github.com/helix-bridge",
-          label: "GitHub",
-          position: "right",
-          logo: '/img/logo.svg'
-        },
-      ],
+      items: [],
     },
     footer: {
       style: "dark",
