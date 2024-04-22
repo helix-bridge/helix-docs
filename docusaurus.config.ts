@@ -56,14 +56,7 @@ const config: Config = {
         alt: "Helix Bridge Logo",
         src: "img/logo.svg",
       },
-      items: [
-        {
-          href: "https://github.com/helix-bridge",
-          label: "GitHub",
-          position: "right",
-          logo: '/img/logo.svg'
-        },
-      ],
+      items: [],
     },
     footer: {
       style: "dark",
@@ -105,6 +98,12 @@ const config: Config = {
     prism: {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
+    },
+    // Search
+    algolia: {
+      appId: "7XWR9R3HW7",
+      apiKey: "67f3045c29776f57ec82bc65447ebcb7",
+      indexName: "helixbridge",
     },
   } satisfies Preset.ThemeConfig,
 };

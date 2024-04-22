@@ -1,0 +1,5 @@
+# Algolia-Crawler-Verif: C609519EC7EEFA36
+
+User-agent: *
+Allow: /
+Sitemap: https://docs.helixbridge.app/sitemap.xml
