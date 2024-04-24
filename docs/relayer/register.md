@@ -2,7 +2,7 @@
 sidebar_position: 2
 ---
 
-# Run a Relayer Node(v2)
+# Run a Relayer Node
 
 ## Overview
 
@@ -16,7 +16,7 @@ Prerequisites:
 2. Register as a Relayer on the Helix UI, which involves staking a certain amount of collateral.
 3. Pull the client code to your local environment, configure bridge information, and compile and run the code.
 
-Now, let's run a Relayer Node on the testnet using the example of (arbitrum-sepolia -> sepolia, USDC).
+Now, let's run a Relayer Node (v2 opposite type for example) on the testnet using the example of (arbitrum-sepolia -> sepolia, USDC).
 
 ## Registration
 
@@ -175,4 +175,4 @@ Return to the Relayer Dashboard page on the UI, enter the **Manage** page, and y
 
 ## Tips
 
-If the token bridge is the `Default` type, there will be slight differences in the registration process, and in the client's configuration, the bridgeType should be modified to lnv2-default.
+If the token bridge is the `Default` type, there will be slight differences in the registration process, and in the client's configuration, the bridgeType should be modified to lnv2-default. Or if the token bridge is the `v3` type, the bridgeType should be modified to `lnv3`.
