@@ -113,12 +113,17 @@ The configuration information for the Relayer is stored in the file `.maintain/c
   - **feeLimit**: Controls the maximum cost of a relay operation, protecting the relayer from excessive gas fees
   - **reorgThreshold**: It's an assumption about the block confirmation of transactions initiated by users on the source chain – the larger, the safer
   - **bridgeType**: Indicates the type of bridge, currently taking values of `lnv2-default`, `lnv2-opposite`, and `lnv3`, consistent with the type displayed during relayer registration
+  - **minProfit[optional]**: Relayer's minimum profit expected.
+  - **maxProfit[optional]**: Relayer's maximum profit expected, both minProfit and maxProfix configured, then when the profit range jumps out of the interval [minProfit, maxProfit], it is automatically adjusted to (minProfit+maxProfit)/2.
   - **tokens**: List the addresses of token pairs on the source and target chains, as well as the exchange rate for the native token on the target chain.
     :::info{title=swapRate}
-    The swapRate is the conversion rate from the native token on the target chain to the transfer token. For example, the native token on Ethereum is ETH, and the token to be transferred is USDC, the conversion rate might be approximately 2500 at 16/01/2024. As prices fluctuate, the Relayer needs to periodically adjust this ratio.
+    Parameter swapRate is the conversion rate from the native token on the target chain to the transfer token. For example, the native token on Ethereum is ETH, and the token to be transferred is USDC, the conversion rate might be approximately 2500 at 16/01/2024. As prices fluctuate, the Relayer needs to periodically adjust this ratio.
     :::
     :::info{title=withdrawLiquidity}
     For the lnv3 bridge, the relayer can set two parameters in this section, including withdrawLiquidityAmountThreshold and withdrawLiquidityCountThreshold. The relayer client will check every 6 hours, and if either threshold is met, the relayer client will initiate the settlement process.
+    :::
+    :::info{title=useDynamicBaseFee}
+    This parameter useDynamicBaseFee is only valid for LnbridgeV2 of type opposite, and needs to be used in conjunction with the minProfit parameter. When it is true, the relayer will query the cost of the current relay from the target chain in real time, and convert it into a dynamic cost signature on the source chain for the user.
     :::
 
 ### SafeWallet
