@@ -4,13 +4,7 @@ sidebar_position: 3
 
 # Fee
 
-## Fee for CBA Model
-
-Under the CBA model, Helix relies on generic cross-chain messaging channel to transmit cross-chain information, with the cost of the underlying messaging being the primary factor contributing to the transfer expenses. Currently, Helix Bridge does not charge protocol fees. Therefore, in this type of token bridge, the fees incurred by users are limited to the cost associated with executing the messaging channel, typically paid using native tokens.
-
-## Fee for LnBridge
-
-For LnBridge, the fee structure consists of two components: a base fee to cover the gas fees incurred by the LnProvider when executing transactions on the target chain and a liquidity fee designed to compensate the LnProvider for the loss of liquidity.
+The fee structure consists of two components: a base fee to cover the gas fees incurred by the LnProvider when executing transactions on the target chain and a liquidity fee designed to compensate the LnProvider for the loss of liquidity.
 
 1. Base Fee
 
