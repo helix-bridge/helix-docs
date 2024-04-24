@@ -8,11 +8,9 @@ sidebar_position: 1
 
 - Visit Helix Bridge at [mainnet](https://helixbridge.app/) or [testnet](https://helix-stg-test.vercel.app/).
 - Select source chain, target chain and token you want to transfer.
-![Transfer](./img/transfer.png)
 - Switch wallet to the source chain and connect wallet.
 - Fill the transfer amount, and then you can find the transfer information include fee, estimated time if there are bridges avaliable.
 - Click `Transfer` and you will receive a popup for transfer confirmation. Then click `Confirm` after every detail is checked.
-![Confirm](./img/confirm.png)
 - Then you will be prompted to confirm the transaction in your wallet. After confirming in your wallet, you have submitted the transaction. You can track the transfer progress by clicking on the `transaction history` in the pop-up window.
 - All the transfer histories can be found in `Explorer`, and you can filter the history by account address or transaction hash. Click the record, you can see the detail of the transfer.
 ![History Detail](./img/history-detail.png)
