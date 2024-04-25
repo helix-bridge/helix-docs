@@ -25,4 +25,3 @@ sidebar_position: 2
 - scroll
 - op
 - gnosis
-- crab-dvm
