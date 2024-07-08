@@ -137,6 +137,52 @@ You can also use safewallet to run relayer, just configure the following 3 param
 - **safeWalletRole:**
   the Role of the account, can be `signer` or `executor`, the `executor` will send execution transaction when there are enough signatures.
 
+### Advanced Features
+You can leverage the decentralized lending feature to achieve two purposes:
+- Earn interest on account assets from the lending market during relayer idle times, reducing the cost of funds as a relayer.
+- Provide relay services for an asset bridge without needing to hold that specific asset.
+
+Currently, Helix relayer supports the AAVE lending pool. This feature is only supported for SafeWallet accounts. To use this feature, you need to create a SafeWallet with the same address across different networks and then transfer the tokens to this wallet.
+
+For example, if you want to use the lending feature on Arbitrum, you will need to add configuration information similar to the example below.
+```
+"rpcnodes": [
+    {
+        "name": "arbitrum",
+        "rpc": "https://arb1.arbitrum.io/rpc",
+        "lendMarket": [
+          {
+            "protocol": "aave",
+            "healthFactorLimit": 3.0,
+            "collaterals": [
+                {
+                    "symbol": "weth",
+                    "autosupplyAmount": 0.2
+                },
+                {
+                    "symbol": "usdt",
+                    "autosupplyAmount": 2000
+                }
+            ],
+            "tokens": [
+                {
+                    "symbol": "weth",
+                    "minRepay": 0.0001,
+                    "minReserved": 0
+                }
+            ]
+          }
+        ]
+    },
+]
+```
+- **lenMarket**: Represents the list of lending markets. 
+- `healthFactorLimit` represents the lending risk factor, with a recommended value of 3. The larger the value, the safer it is, but the corresponding lending amount is lower.
+- `collaterals` represents the collateral, and `autosupplyAmount` indicates the automatic collateral limit when the account has a balance and the collateral amount has not reached this value.
+- `tokens` represent the lending tokens, and the client will also automatically repay the loan when the account has a balance of these assets.
+- `Priority Usage` When a relay order is generated, the usage order of relay account assets is **Account Balance** > **Collateral Redemption** > **Lending Assets**. The redemption of collateral or the use of lending assets will only be enabled if they are in the configuration list.
+- `Native Token Handling` The handling of any native token assets, including supply, withdraw, or lending, is represented by its wrapped token in configure file. However, the use of assets in the account remains as native tokens.
+
 ### Install & Run
 
 After completing the configuration, you can execute the following commands one by one to compile and start the client:
