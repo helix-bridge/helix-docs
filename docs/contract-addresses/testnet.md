@@ -23,3 +23,8 @@ sidebar_position: 2
 - chainId: 300
 - LnDefaultBridge(v2): [0xBe23e871318E49C747CB909AC65aCCFAEAac3a37](https://sepolia.explorer.zksync.io/address/0xBe23e871318E49C747CB909AC65aCCFAEAac3a37)
 - LnBridge(v3): [0xDc55fF59F82AA50D8A4A61dB8CcaDffD26Fb7dD2](https://sepolia.explorer.zksync.io/address/0xDc55fF59F82AA50D8A4A61dB8CcaDffD26Fb7dD2)
+
+## Base Sepolia
+
+- chainId: 84532
+- LnBridge(v3): [0x29D148A9e87C763292a33A55B9dBcAf44A194102](https://sepolia.basescan.org/address/0x29D148A9e87C763292a33A55B9dBcAf44A194102)

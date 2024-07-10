@@ -15,6 +15,8 @@ Here's a brief overview of the steps to deploy a Relayer:
 
   If you're not using Helix's public service, you'll need to deploy your own Indexer service. This may involve setting up and configuring an Indexer to index and provide on-chain data.
 
+  If you are not connected to the Helix public service, the Helix app will not be able to display your relayer information and will be unable to complete recommendations when users send transactions.
+
 - **Building from Source**
 
   Download the Relayer's source code and compile it according to the instructions in the project's documentation. Typically, this involves installing build tools, dependencies, and running build commands.
