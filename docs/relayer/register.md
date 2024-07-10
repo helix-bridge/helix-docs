@@ -145,7 +145,7 @@ You can leverage the decentralized lending feature to achieve two purposes:
 Currently, Helix relayer supports the AAVE lending pool. This feature is only supported for SafeWallet accounts. To use this feature, you need to create a SafeWallet with the same address across different networks and then transfer the tokens to this wallet.
 
 For example, if you want to use the lending feature on Arbitrum, you will need to add configuration information similar to the example below.
-```
+```js
 "rpcnodes": [
     {
         "name": "arbitrum",
