@@ -3,6 +3,7 @@ sidebar_position: 1
 ---
 
 # Mainnet
+The contract address can be found in configure files at https://github.com/helix-bridge/helixconf/tree/main/conf/mainnets.
 
 ## Ethereum
 
@@ -70,3 +71,29 @@ sidebar_position: 1
 - chainId: 100
 - LnDefaultBridge(v2): [0x94C614DAeFDbf151E1BB53d6A201ae5fF56A9337](https://gnosisscan.io/address/0x94C614DAeFDbf151E1BB53d6A201ae5fF56A9337)
 - LnBridge(v3): [0xbA5D580B18b6436411562981e02c8A9aA1776D10](https://gnosisscan.io/address/0xbA5D580B18b6436411562981e02c8A9aA1776D10)
+
+## zircuit
+
+- chainId: 48900
+- LnBridge(v3): [0xbA5D580B18b6436411562981e02c8A9aA1776D10](https://explorer.zircuit.com/address/0xbA5D580B18b6436411562981e02c8A9aA1776D10)
+
+## blast
+
+- chainId: 81457
+- LnBridge(v3): [0xB180D7DcB5CC161C862aD60442FA37527546cAFC](https://blastscan.io/address/0xB180D7DcB5CC161C862aD60442FA37527546cAFC)
+
+## Astar zkEvm
+
+- chainId: 3776
+- LnBridge(v3): [0xD476650e03a45E70202b0bcAfa04E1513920f83a](https://astar-zkevm.explorer.startale.com/address/0xD476650e03a45E70202b0bcAfa04E1513920f83a)
+
+## Base
+
+- chainId: 8453
+- LnBridge(v3): [0xbA5D580B18b6436411562981e02c8A9aA1776D10](https://basescan.org/address/0xbA5D580B18b6436411562981e02c8A9aA1776D10)
+
+## Moonbeam
+
+- chainId: 1284
+- LnBridge(v3): [0xbA5D580B18b6436411562981e02c8A9aA1776D10](https://moonscan.io/address/0xbA5D580B18b6436411562981e02c8A9aA1776D10)
+

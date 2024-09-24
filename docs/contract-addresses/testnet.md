@@ -28,3 +28,18 @@ sidebar_position: 2
 
 - chainId: 84532
 - LnBridge(v3): [0x29D148A9e87C763292a33A55B9dBcAf44A194102](https://sepolia.basescan.org/address/0x29D148A9e87C763292a33A55B9dBcAf44A194102)
+
+## Morph
+
+- chainId: 2810
+- LnBridge(v3): [0x5fc7BC9F21e5dAd364756CC92c43C1E553580107](https://explorer-holesky.morphl2.io/address/0x5fc7BC9F21e5dAd364756CC92c43C1E553580107)
+
+## zircuit-sepolia
+
+- chainId: 48899
+- LnBridge(v3): [0x369642b7b9cf4eAc16b07797F77e1C0907Ea62c1](https://explorer.testnet.zircuit.com/address/0x369642b7b9cf4eAc16b07797F77e1C0907Ea62c1)
+
+## bera
+
+- chainId: 80084
+- LnBridge(v3): [0x5fc7BC9F21e5dAd364756CC92c43C1E553580107](https://bartio.beratrail.io/address/0x5fc7BC9F21e5dAd364756CC92c43C1E553580107)

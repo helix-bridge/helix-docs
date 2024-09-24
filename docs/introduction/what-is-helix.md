@@ -5,13 +5,15 @@ slug: /
 
 # What is Helix
 
-Helix Bridge is a fully open-source and decentralized cross-chain asset bridge. It's built on top of common messaging bridges that already exist between chains, and provides secure, fast, and low-cost cross-chain functionality for users.
+Helix Bridge is a fully open-source, non-custodial and decentralized cross-chain asset bridge. It's built on top of common messaging bridges that already exist between chains, and provides secure, fast, and low-cost cross-chain functionality for users.
 
 ## Features
 
 - **Secure**
+
+  The protocol does not custody user assets, and there is no liquidity pool. During the transaction execution process, only the funds from uncompleted orders are temporarily locked in the protocol. These locked funds, referred to as in-flight assets, are relatively small in volume and have short lock-up periods. This approach makes the protocol safer in managing assets compared to custodial protocols.
   
-  Helix Bridge separates the underlying generic messages and the asset bridging, which helps to reduce risk.  
+  Helix Bridge separates the underlying generic messages and the asset bridging, which helps to reduce risk.
   
   While Helix's security does not entirely rely on generic messages, we take great care in selecting the generic message bridges we use. By combining the security of the generic message bridges with other security measures, we minimize the risk of security incidents.   
   
@@ -30,5 +32,5 @@ Helix Bridge is a fully open-source and decentralized cross-chain asset bridge. 
 ## Join The Community
 
 - [Discord](https://discord.gg/6XyyNGugdE)
-- [Twitter](https://twitter.com/helixbridges)
+- [Twitter](https://twitter.com/helixofficialx)
 - [Github](https://github.com/helix-bridge)

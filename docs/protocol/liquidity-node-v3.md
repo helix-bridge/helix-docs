@@ -17,6 +17,13 @@ To address this issue, we are introducing a new protocol version, v3, which elim
 
 ## Interactions
 
+The diagram below illustrates three different flows in HelixBridge Lnv3, along with the asset transfer paths involved:
+
+* [Green Line] The standard cross-chain process, where the user starts an order → the MM completes the order.
+* [Red Line] An exception case, where the user starts an order → order timeout → the slasher completes the order and earns a reward.
+* [Blue Line] The MM claims the locked liquidity assets.
+![Lnv3](./img/lnv3.png)
+
 ### LnProvider Registration
 
 The LnProvider stores its configuration information on the source chain and stakes a specific amount of penalty reserve, which can be shared across different paths.
@@ -37,11 +44,13 @@ The LnProvider stores its configuration information on the source chain and stak
 
    Once the LnProvider sees the transfer event, it transfers the tokens to the user-specified account on the target chain and generates a transfer proof at the same time.
 
-   If the LnProvider did not complete the transfer within a specified timeout, the Slasher on the target chain transfers tokens to the user and sends a reverse message to the source chain, extracting the locked assets as per the second step.
+### Slash
 
-> A Slasher does not need to register. Any account including the user themselves is considered a Slasher as long as it completes the this.
->
-> Slashers play a crucial role throughout the entire cross-chain transaction cycle and assists in finalizing transactions when LnProvider is not functioning.
+If the LnProvider did not complete the transfer within a specified timeout, the Slasher on the target chain transfers tokens to the user and sends a reverse message to the source chain, extracting the locked assets as per the second step.
+
+A Slasher does not need to register. Any account including the user themselves is considered a Slasher as long as it completes the this.
+
+Slashers play a crucial role throughout the entire cross-chain transaction cycle and assists in finalizing transactions when LnProvider is not functioning. The slasher not only receives the equivalent assets transferred to the user but also earns the fees and the LnProvider's penalty collateral, completing the transaction loop.
 
 ### Liquidity Withdrawal by LnProvider
 
