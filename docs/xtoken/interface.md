@@ -1,9 +1,9 @@
 ---
 sidebar_position: 4
-sidebar_label: SDK
+sidebar_label: Interface
 ---
 
-# SDK
+# Interface
 
 Assets not issued via XToken are considered native assets. Conversely, assets issued through XToken, backed by native assets, are referred to as mapped assets. Typically, mapped assets have a symbol starting with the letter "x," although exceptions exist, such as mapped assets defined by the issuer. Hereafter, we will refer to the chain where native assets reside as the ***source chain***, and the chain where mapped assets reside as the ***target chain***.
 
