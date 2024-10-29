@@ -3,6 +3,8 @@ sidebar_position: 4
 sidebar_label: Contract Address
 ---
 
+# Contract Address
+
 ## Mainnet
 The contract address can be found in configure files at https://github.com/helix-bridge/helixconf/tree/main/conf/mainnets.
 
