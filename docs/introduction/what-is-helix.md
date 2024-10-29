@@ -3,31 +3,21 @@ sidebar_position: 1
 slug: /
 ---
 
-# What is Helix
+# Helixbox
 
-Helix Bridge is a fully open-source, non-custodial and decentralized cross-chain asset bridge. It's built on top of common messaging bridges that already exist between chains, and provides secure, fast, and low-cost cross-chain functionality for users.
+Helixbox is a service provider focused on cross-chain asset order flow services, as well as multi-chain and multi-market liquidity discovery, aggregation, and market making. It currently includes the following three main services: Helixbox LnBridge, XToken Bridge, and Liquidity Solver.
 
-## Features
+## What is Helixbox LnBridge
 
-- **Secure**
+Helixbox LnBridge is a decentralized and non-custodial cross-chain asset bridge based on the Helixbox LnBridge protocol, providing users with secure, low-latency, and low-fee cross-chain asset order flow services.
 
-  The protocol does not custody user assets, and there is no liquidity pool. During the transaction execution process, only the funds from uncompleted orders are temporarily locked in the protocol. These locked funds, referred to as in-flight assets, are relatively small in volume and have short lock-up periods. This approach makes the protocol safer in managing assets compared to custodial protocols.
-  
-  Helix Bridge separates the underlying generic messages and the asset bridging, which helps to reduce risk.
-  
-  While Helix's security does not entirely rely on generic messages, we take great care in selecting the generic message bridges we use. By combining the security of the generic message bridges with other security measures, we minimize the risk of security incidents.   
-  
-- **Fast**
+## What is XToken Bridge
 
-  Additionally, Helix's Asset Cross-Chain Protocol can complete the cross-chain process in as little as 10 seconds to a minute, making it a fast and efficient option for users.  
-  
-- **Low Cost**
+XToken Bridge is an asset custody and cross-chain issuance protocol. Helixbox provides an asset mapping and issuance platform, with the asset custody handled by third-party issuers. Helixbox focuses solely on the security of the protocol and engineering implementation. The protocol is based on the CBA model and supports transaction integrity.
 
-  The low cost of Helix's cross-chain process is due to its innovative design, which avoids the need for complex messaging bridges. Instead, simple interactions between the user and the contract allow for direct asset transfers, minimizing the cost of the process.  
-  
-- **Trustless**
+## What is Liquidity Solver
 
-  The Helix protocol is trustless, meaning that users do not need to rely on any centralized system to exchange assets. Instead, the protocol relies on a variety of roles to ensure the safety and stable operation of the cross-chain process. This trustless design makes the protocol more secure and resilient to failure, as it does not depend on any single point of failure.  
+Helixbox provides solver services for order flow providers like CowSwap and UniswapX, enhancing efficiency in liquidity provision and swaps.
 
 ## Join The Community
 

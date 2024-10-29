@@ -3,8 +3,8 @@ import type { Config } from "@docusaurus/types";
 import type * as Preset from "@docusaurus/preset-classic";
 
 const config: Config = {
-  title: "Helix Bridge",
-  tagline: "Helix Bridge Docs",
+  title: "Helixbox",
+  tagline: "Helixbox Docs",
   favicon: "img/favicon.ico",
 
   // Set the production url of your site here
@@ -51,9 +51,9 @@ const config: Config = {
   themeConfig: {
     // Replace with your project's social card
     navbar: {
-      title: "Helix Bridge",
+      title: "Helixbox",
       logo: {
-        alt: "Helix Bridge Logo",
+        alt: "Helix Logo",
         src: "img/logo.svg",
       },
       items: [],
@@ -65,7 +65,7 @@ const config: Config = {
           title: "App",
           items: [
             {
-              label: "Helix Bridge",
+              label: "Helixbox",
               to: "https://helixbridge.app",
             },
           ],
@@ -93,7 +93,7 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Helix Bridge`,
+      copyright: `Copyright © ${new Date().getFullYear()} Helixbox`,
     },
     prism: {
       theme: prismThemes.github,
