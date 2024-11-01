@@ -51,7 +51,7 @@ const config: Config = {
   themeConfig: {
     // Replace with your project's social card
     navbar: {
-      title: "Helixbox",
+      title: "",
       logo: {
         alt: "Helix Logo",
         src: "img/logo.svg",
